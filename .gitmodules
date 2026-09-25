@@ -1,0 +1,6 @@
+[submodule "deps/coroutine"]
+	path = deps/coroutine
+	url = https://github.com/notweerdmonk/coroutine
+[submodule "deps/loge"]
+	path = deps/loge
+	url = https://github.com/notweerdmonk/loge

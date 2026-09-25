@@ -1,0 +1,39 @@
+| File                           | Line | Todo item                                                              |
+|--------------------------------|------|------------------------------------------------------------------------|
+| port/mega328p/port_mega328p.h  | 7    | Use BITMASK                                                            |
+| port/mega328p/port_mega328p.h  | 18   | use ternary operator                                                   |
+| peripheral/uart/uart.c         | 273  | handle case where n is greater than rx_count                           |
+| peripheral/uart/uart.c         | 349  | sprintf with -lprintf_flt or dtostrf, but bigger size                  |
+| peripheral/lcd/lcd.c           | 17   | add busy poll method                                                   |
+| peripheral/lcd/lcd.c           | 18   | supports HD44780 controller only, add a way to determine controller    |
+| peripheral/lcd/lcd.c           | 155  | 8-bit mode reset routine                                               |
+| peripheral/lcd/lcd.c           | 185  | 8-bit mode setup routine                                               |
+| peripheral/lcd/lcd.c           | 424  | sprintf with -lprintf_flt or dtostrf, but bigger size                  |
+| include/kernel.h               | 63   | add more traps, traps from SREG                                        |
+| examples/host/encoder.c        | 245  | pass uart_config as argument                                           |
+| kernel/kernel.c                | 19   | use built-in types instead of typedefs, use uint8_t as descriptor type |
+| kernel/kernel.c                | 20   | return value of setjmp, on fake and actual returns                     |
+| kernel/kernel.c                | 21   | move setjmp and longjmp to assembly source files                       |
+| kernel/kernel.c                | 22   | change return type of task_cb from (void*) to (uint16_t*)              |
+| kernel/kernel.c                | 23   | write wiki                                                             |
+| kernel/kernel.c                | 24   | tutorial in wiki for coroutines                                        |
+| kernel/kernel.c                | 25   | tutorial in wiki for debugger                                          |
+| kernel/kernel.c                | 26   | make some macros static functions                                      |
+| kernel/kernel.c                | 27   | enable/disable software pwm channels                                   |
+| kernel/kernel.c                | 28   | software PWM resource control                                          |
+| kernel/kernel.c                | 29   | ability to trigger debugger on exception?                              |
+| kernel/kernel.c                | 30   | create an archive and link it with user code                           |
+| kernel/kernel.c                | 31   | use memblock                                                           |
+| kernel/kernel.c                | 32   | implement priotiy queue for tasks                                      |
+| kernel/kernel.c                | 33   | use separate assembly function for get_pc                              |
+| kernel/kernel.c                | 34   | save and restore SREG in setjmp/longjmp                                |
+| kernel/kernel.c                | 35   | add eeprom module                                                      |
+| kernel/kernel.c                | 36   | gpio resource control                                                  |
+| kernel/kernel.c                | 37   | revisit and homogenise function and macro names                        |
+| kernel/kernel.c                | 38   | lint with cppcheck                                                     |
+| kernel/kernel.c                | 39   | freeze timers when task is suspended?                                  |
+| kernel/kernel.c                | 41   | event to restart tasks?                                                |
+| kernel/kernel.c                | 42   | Use Sphinx to genereate Doxygen documentation for Read the Docs        |
+| kernel/opt/debugger/debugger.c | 21   | verbose outputs                                                        |
+| kernel/opt/debugger/debugger.c | 22   | find whitespaces to parse tokens instead of hard-coded indexes         |
+| kernel/opt/debugger/debugger.c | 23   | add command history buffer                                             |
