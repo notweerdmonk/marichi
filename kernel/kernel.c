@@ -1579,8 +1579,9 @@ void wake_task_cb(timer_id_t t_id, task_data_t data) {
   task_t *p_task = data.ptr;
 
   if (p_task) {
-    run_task(p_task);
-    discard_timer(t_id);
+    if (run_task(p_task) == TASK_STATE_RUNNING) {
+      discard_timer(t_id);
+    }
   }
 }
 
