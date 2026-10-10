@@ -19,7 +19,7 @@
 /**
  * @file setjmp.h
  * @author notweerdmonk
- * @brief implements setjmp
+ * @brief header file for non-local goto data structures and routines
  */
 
 #ifndef _AVR_KERNEL_SETJMP_H_
@@ -27,13 +27,23 @@
 
 #include <common.h>
 
+/*****************************************************************************/
+/* Non-local goto                                                             */
+/*****************************************************************************/
+
+/**
+ * Transfer control from one function to a predetermined location in another
+ * function.
+ */
+
+/**
+ * jump_buf_t stores the execution context of the processor at the point from
+ * which setjmp gets called. longjmp when called with such a struct as argument
+ * facilitates restoration of the execution context back to that point.
+ */
 typedef struct _jump_buf {
   uint8_t buf[38];
 } jump_buf_t[1];
-
-/*****************************************************************************/
-/* Nonlocal goto                                                             */
-/*****************************************************************************/
 
 /**
  * Macro for longjmp
@@ -75,13 +85,18 @@ typedef struct _jump_buf {
     "ldd r27, Z+27"             "\n\t"                 \
     "ldd r28, Z+28"             "\n\t"                 \
     "ldd r29, Z+29"             "\n\t"                 \
-    "ldd __tmp_reg__, Z+32"     "\n\t" /* SP_H */      \
+    "ldd __tmp_reg__, Z+33"     "\n\t" /* SP_H */      \
     "out __SP_H__, __tmp_reg__" "\n\t"                 \
-    "ldd __tmp_reg__, Z+33"     "\n\t" /* SP_L */      \
+    /* disable interrupts to avoid SP value corruption */ \
+    "cli"                       "\n\t"                 \
+    /* restore SREG; interrupts can get re-enabled after next instruction */ \
+    "ldd __tmp_reg__, Z+32"     "\n\t"                 \
+    "out __SREG__, __tmp_reg__" "\n\t"                 \
+    "ldd __tmp_reg__, Z+34"     "\n\t" /* SP_L */      \
     "out __SP_L__, __tmp_reg__" "\n\t"                 \
-    "ldd __tmp_reg__, Z+35"     "\n\t" /* LSB of PC */ \
+    "ldd __tmp_reg__, Z+36"     "\n\t" /* LSB of PC */ \
     "push __tmp_reg__"          "\n\t"                 \
-    "ldd __tmp_reg__, Z+34"     "\n\t" /* MSB of PC */ \
+    "ldd __tmp_reg__, Z+35"     "\n\t" /* MSB of PC */ \
     "push __tmp_reg__"          "\n\t"                 \
     "ldd __tmp_reg__, Z+30"     "\n\t" /* r30 */       \
     "push __tmp_reg__"          "\n\t"                 \
@@ -95,14 +110,14 @@ typedef struct _jump_buf {
     : "r0"                                             \
   );
 
-/**
- * @brief Exposes kernel internal task reset jump buffer as const pointer.
- * @return const jump_buf_t* Pointer to the internal task reset jump buffer
- */
-const jump_buf_t* kernel_task_reset_jump_buffer();
 
 void setjmp(jump_buf_t buf);
 
 void longjmp(jump_buf_t buf);
 
+/**
+ * @brief Exposes kernel internal task reset jump buffer as const pointer.
+ * @return const jump_buf_t* Pointer to the internal task reset jump buffer
+ */
+const jump_buf_t* kernel_task_reset_jump_buffer();
 #endif /* _AVR_KERNEL_SETJMP_H_ */
