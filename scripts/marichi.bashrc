@@ -66,7 +66,7 @@ alias tree="$MYTREE -I build/"
   echo Created "$PROJECT_ROOT"/cscope directory
 
 # Cscope aliases
-alias cscope-add="find $PROJECT_ROOT -name *.h -o -name *.c > $PROJECT_ROOT/cscope/cscope.files"
+alias cscope-add="find $PROJECT_ROOT -name \"*.h\" -o -name \"*.c\" > $PROJECT_ROOT/cscope/cscope.files"
 alias cscope-update="$MYCSCOPE -q -R -b -i $PROJECT_ROOT/cscope/cscope.files -f $PROJECT_ROOT/cscope/cscope.out"
 alias cscope-browse="$MYCSCOPE -P$PROJECT_ROOT/ -d -f $PROJECT_ROOT/cscope/cscope.out"
 
